@@ -1,5 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +13,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Startup Name Generator',
+      title: 'mahzeh',
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
-          foregroundColor: Colors.pink,
+          foregroundColor: Colors.deepPurple,
+          // titleTextStyle: GoogleFonts.permanentMarker(
+          titleTextStyle: GoogleFonts.oi(
+            fontSize: 14,
+            color: Colors.deepPurple,
+          ),
         ),
+        fontFamily: GoogleFonts.comfortaa().fontFamily,
+
       ),
       home: const RandomWords(),
     );
@@ -39,12 +48,12 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Startup Name Generator'),
+        title: const Text('mahzeh'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.list),
+            icon: const Icon(Icons.camera_alt),
             onPressed: _pushSaved,
-            tooltip: 'Saved Suggestions',
+            tooltip: 'запитати / спросить',
           ),
         ],
       ),
@@ -64,6 +73,9 @@ class _RandomWordsState extends State<RandomWords> {
             title: Text(
               _suggestions[index].asPascalCase,
               style: _biggerFont,
+            ),
+            leading: Image.asset(
+              'assets/images/camomile.jpeg',
             ),
             trailing: Icon(
               alreadySaved ? Icons.favorite : Icons.favorite_border,
@@ -108,7 +120,7 @@ class _RandomWordsState extends State<RandomWords> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Saved Suggestions'),
+              title: Text('запитати / спросить'),
             ),
             body: ListView(children: divided),
           );
