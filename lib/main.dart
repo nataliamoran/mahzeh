@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,8 +25,16 @@ class MyApp extends StatelessWidget {
             color: Colors.deepPurple,
           ),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.deepOrange,
+            alignment: Alignment.centerRight,
+            textStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+            ),
+        ),
+        ),
         fontFamily: GoogleFonts.comfortaa().fontFamily,
-
       ),
       home: const RandomWords(),
     );
@@ -43,9 +52,15 @@ class _RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _saved = <WordPair>{};
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _flowers = ['assets/images/camomile.jpeg', 'assets/images/tulips.jpeg',
+    'assets/images/snapdragon.jpeg', 'assets/images/clover.jpeg'];
+  final _testText = "Но я должен объяснить вам, как родилась вся эта ошибочная идея отрицания удовольствия и восхваления боли, и я дам вам полный отчет о системе и излагаю фактические учения великого исследователя истины, Создатель человеческого счастья";
+  var _flower_i = 0;
 
   @override
   Widget build(BuildContext context) {
+    final _screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('mahzeh'),
@@ -61,6 +76,7 @@ class _RandomWordsState extends State<RandomWords> {
         padding: const EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
           if (i.isOdd) return const Divider();
+          _flower_i += 1;
 
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
@@ -69,29 +85,66 @@ class _RandomWordsState extends State<RandomWords> {
 
           final alreadySaved = _saved.contains(_suggestions[index]);
 
-          return ListTile(
-            title: Text(
-              _suggestions[index].asPascalCase,
-              style: _biggerFont,
+          return Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: _screenWidth > 1200 ? _screenWidth / 2 : _screenWidth,
+                  child: Image(
+                    image: AssetImage(_flowers[_flower_i % _flowers.length]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Divider(),
+                Text(
+                  _testText,
+                  textAlign: TextAlign.left,
+                  softWrap: true,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const Divider(),
+                TextButton(
+                  child: const Text('перекласти / перевести'),
+                  onPressed: () {},
+                ),
+
+                // Image.asset(_flowers[_flower_i % _flowers.length]),
+                // SizedBox(
+                //   width: MediaQuery.of(context).size.width,
+                //   child: FittedBox(
+                //     child: Image.asset(_flowers[0]),
+                //     fit: BoxFit.fill,
+                //   ),
+                // ),
+              ],
             ),
-            leading: Image.asset(
-              'assets/images/camomile.jpeg',
-            ),
-            trailing: Icon(
-              alreadySaved ? Icons.favorite : Icons.favorite_border,
-              color: alreadySaved ? Colors.red : null,
-              semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-            ),
-            onTap: () {
-              setState(() {
-                if (alreadySaved) {
-                  _saved.remove(_suggestions[index]);
-                } else {
-                  _saved.add(_suggestions[index]);
-                }
-              });
-            },
           );
+
+          // return ListTile(
+          //   title: Text(
+          //     _suggestions[index].asPascalCase,
+          //     style: _biggerFont,
+          //   ),
+          //   leading: Image.asset(
+          //     'assets/images/camomile.jpeg',
+          //   ),
+          //   trailing: Icon(
+          //     alreadySaved ? Icons.favorite : Icons.favorite_border,
+          //     color: alreadySaved ? Colors.red : null,
+          //     semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
+          //   ),
+          //   onTap: () {
+          //     setState(() {
+          //       if (alreadySaved) {
+          //         _saved.remove(_suggestions[index]);
+          //       } else {
+          //         _saved.add(_suggestions[index]);
+          //       }
+          //     });
+          //   },
+          // );
         },
       ),
     );
