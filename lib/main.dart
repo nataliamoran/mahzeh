@@ -28,33 +28,40 @@ class MyApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             primary: Colors.deepOrange,
-            alignment: Alignment.centerRight,
-            textStyle: const TextStyle(
+            padding: EdgeInsetsDirectional.fromSTEB(10, 5, 20, 5),
+            // alignment: Alignment.center,
+            textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-            ),
-        ),
+                fontFamily: GoogleFonts.comfortaa().fontFamily),
+          ),
         ),
         fontFamily: GoogleFonts.comfortaa().fontFamily,
       ),
-      home: const RandomWords(),
+      home: const Mahzeh(),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  const RandomWords({Key? key}) : super(key: key);
+class Mahzeh extends StatefulWidget {
+  const Mahzeh({Key? key}) : super(key: key);
 
   @override
-  State<RandomWords> createState() => _RandomWordsState();
+  State<Mahzeh> createState() => _MahzehState();
 }
 
-class _RandomWordsState extends State<RandomWords> {
+class _MahzehState extends State<Mahzeh> {
   final _suggestions = <WordPair>[];
   final _saved = <WordPair>{};
   final _biggerFont = const TextStyle(fontSize: 18.0);
-  final _flowers = ['assets/images/camomile.jpeg', 'assets/images/tulips.jpeg',
-    'assets/images/snapdragon.jpeg', 'assets/images/clover.jpeg'];
-  final _testText = "Но я должен объяснить вам, как родилась вся эта ошибочная идея отрицания удовольствия и восхваления боли, и я дам вам полный отчет о системе и излагаю фактические учения великого исследователя истины, Создатель человеческого счастья";
+  final _flowers = [
+    'assets/images/camomile.jpeg',
+    'assets/images/tulips.jpeg',
+    'assets/images/snapdragon.jpeg',
+    'assets/images/clover.jpeg'
+  ];
+  final _testText =
+      "Но я должен объяснить вам, как родилась вся эта ошибочная идея отрицания удовольствия и восхваления боли, и я дам вам полный отчет о системе и излагаю фактические учения великого исследователя истины, Создатель человеческого счастья";
+  final _testAnswers = ["один тестовый ответ", "другой тестовый ответ"];
   var _flower_i = 0;
 
   @override
@@ -97,18 +104,60 @@ class _RandomWordsState extends State<RandomWords> {
                   ),
                 ),
                 const Divider(),
-                Text(
-                  _testText,
-                  textAlign: TextAlign.left,
-                  softWrap: true,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                    _testText,
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Divider(),
-                TextButton(
-                  child: const Text('перекласти / перевести'),
-                  onPressed: () {},
-                ),
+                Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                    child: TextButton(
+                      child: Row(mainAxisSize: MainAxisSize.min, children: [
+                        Stack(
+                          children: <Widget>[
+                            const IconButton(
+                              icon: Icon(
+                                Icons.edit_note,
+                                color: Colors.black,
+                                size: 30.0,
+                              ),
+                              onPressed: null,
+                            ),
+                            _testAnswers.isEmpty
+                                ? Container()
+                                : Positioned(
+                                    bottom: 25.0,
+                                    child: Stack(
+                                      children: <Widget>[
+                                        const Icon(Icons.brightness_1,
+                                            size: 25.0,
+                                            color: Colors.deepOrange),
+                                        Positioned(
+                                            top: 5.0,
+                                            left: 8.0,
+                                            child: Center(
+                                              child: Text(
+                                                _testAnswers.length.toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12.0,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            )),
+                                      ],
+                                    )),
+                          ],
+                        ),
+                        const Text('перекласти / перевести'),
+                      ]),
+                      onPressed: () {},
+                    )),
 
                 // Image.asset(_flowers[_flower_i % _flowers.length]),
                 // SizedBox(
