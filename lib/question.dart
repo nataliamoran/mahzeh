@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
 
 import 'translate_button.dart';
 
@@ -8,8 +9,7 @@ class _QuestionState extends State<Question> {
   Widget build(BuildContext context) {
     final _screenWidth = MediaQuery.of(context).size.width;
 
-    return Card(
-      child: Column(
+    return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(
@@ -22,17 +22,14 @@ class _QuestionState extends State<Question> {
           const Divider(),
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Text(
-              widget.imageDescription,
-              textAlign: TextAlign.left,
-              softWrap: true,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
+            child: ExpandablePanel(
+              collapsed: ExpandableButton(
+                  child: Text(widget.imageDescription, softWrap: true, maxLines: 2, overflow: TextOverflow.ellipsis,)
+              ),
+              expanded: Text(widget.imageDescription, softWrap: true, ),
+            )
           ),
-          TranslateButton(numAnswers: widget.answers.length),
         ],
-      ),
     );
   }
 }

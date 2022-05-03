@@ -20,7 +20,7 @@ class _TranslateButtonState extends State<TranslateButton> {
                   ),
                   onPressed: null,
                 ),
-                widget.numAnswers == 0
+                widget.answers.isEmpty
                     ? Container()
                     : Positioned(
                     bottom: 25.0,
@@ -34,7 +34,7 @@ class _TranslateButtonState extends State<TranslateButton> {
                             left: 8.0,
                             child: Center(
                               child: Text(
-                                widget.numAnswers.toString(),
+                                widget.answers.length.toString(),
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.0,
@@ -56,7 +56,9 @@ class _TranslateButtonState extends State<TranslateButton> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          return const AnswerScreen();
+          return AnswerScreen(imageName: widget.imageName,
+              imageDescription: widget.imageDescription,
+              answers: widget.answers);
         },
       ),
     );
@@ -64,8 +66,13 @@ class _TranslateButtonState extends State<TranslateButton> {
 }
 
 class TranslateButton extends StatefulWidget {
-  final int numAnswers;
-  const TranslateButton({Key? key, required this.numAnswers}) : super(key: key);
+  final String imageName;
+  final String imageDescription;
+  final List answers;
+  const TranslateButton({Key? key,
+    required this.imageName,
+    required this.imageDescription,
+    required this.answers}) : super(key: key);
 
   @override
   State<TranslateButton> createState() => _TranslateButtonState();

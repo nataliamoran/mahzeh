@@ -74,9 +74,19 @@ class _MahzehState extends State<Mahzeh> {
 
           final alreadySaved = _saved.contains(_suggestions[index]);
 
-          return Question(imageName: _flowers[_flower_i % _flowers.length],
-              imageDescription: _testText,
-              answers: _testAnswers);
+          return Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Question(imageName: _flowers[_flower_i % _flowers.length],
+                    imageDescription: _testText,
+                    answers: _testAnswers),
+                TranslateButton(imageName: _flowers[_flower_i % _flowers.length],
+                    imageDescription: _testText,
+                    answers: _testAnswers),
+              ],
+            ),
+          );
 
           // return ListTile(
           //   title: Text(
