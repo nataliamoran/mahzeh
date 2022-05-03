@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'translate_button.dart';
 import 'question.dart';
+import 'question_screen.dart';
 import 'app_theme.dart';
 
 void main() {
@@ -55,7 +56,7 @@ class _MahzehState extends State<Mahzeh> {
         actions: [
           IconButton(
             icon: const Icon(Icons.camera_alt),
-            onPressed: _pushSaved,
+            onPressed: _askQuestion,
             tooltip: 'запитати / спросить',
           ),
         ],
@@ -105,33 +106,11 @@ class _MahzehState extends State<Mahzeh> {
     );
   }
 
-  void _pushSaved() {
+  void _askQuestion() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-          final tiles = _saved.map(
-            (pair) {
-              return ListTile(
-                title: Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final divided = tiles.isNotEmpty
-              ? ListTile.divideTiles(
-                  context: context,
-                  tiles: tiles,
-                ).toList()
-              : <Widget>[];
-
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('запитати / спросить'),
-            ),
-            body: ListView(children: divided),
-          );
+          return const QuestionScreen();
         },
       ),
     );
