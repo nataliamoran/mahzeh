@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'translate_button.dart';
 import 'question.dart';
+import 'app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,29 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'mahzeh',
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.deepPurple,
-          // titleTextStyle: GoogleFonts.permanentMarker(
-          titleTextStyle: GoogleFonts.neucha(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-          ),
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            primary: Colors.deepOrange,
-            padding: EdgeInsetsDirectional.fromSTEB(10, 5, 20, 5),
-            // alignment: Alignment.center,
-            textStyle: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: GoogleFonts.comfortaa().fontFamily),
-          ),
-        ),
-        fontFamily: GoogleFonts.comfortaa().fontFamily,
-      ),
+      theme: AppTheme().themeData,
       home: const Mahzeh(),
     );
   }
@@ -69,7 +48,6 @@ class _MahzehState extends State<Mahzeh> {
 
   @override
   Widget build(BuildContext context) {
-    final _screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
