@@ -4,8 +4,6 @@ class _TranslateButtonState extends State<TranslateButton> {
 
   @override
   Widget build(BuildContext context) {
-    final _testAnswers = ["один тестовый ответ", "другой тестовый ответ"];
-
     return Container(
         margin: const EdgeInsets.only(top: 5.0, bottom: 10.0),
         child: TextButton(
@@ -20,7 +18,7 @@ class _TranslateButtonState extends State<TranslateButton> {
                   ),
                   onPressed: null,
                 ),
-                _testAnswers.isEmpty
+                widget.numAnswers == 0
                     ? Container()
                     : Positioned(
                     bottom: 25.0,
@@ -34,7 +32,7 @@ class _TranslateButtonState extends State<TranslateButton> {
                             left: 8.0,
                             child: Center(
                               child: Text(
-                                _testAnswers.length.toString(),
+                                widget.numAnswers.toString(),
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.0,
@@ -54,7 +52,8 @@ class _TranslateButtonState extends State<TranslateButton> {
 }
 
 class TranslateButton extends StatefulWidget {
-  const TranslateButton({Key? key}) : super(key: key);
+  final int numAnswers;
+  const TranslateButton({Key? key, required this.numAnswers}) : super(key: key);
 
   @override
   State<TranslateButton> createState() => _TranslateButtonState();

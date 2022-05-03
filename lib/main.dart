@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'translate_button.dart';
+import 'question.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,8 +22,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
           foregroundColor: Colors.deepPurple,
           // titleTextStyle: GoogleFonts.permanentMarker(
-          titleTextStyle: GoogleFonts.oi(
-            fontSize: 14,
+          titleTextStyle: GoogleFonts.neucha(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
             color: Colors.deepPurple,
           ),
         ),
@@ -62,7 +64,7 @@ class _MahzehState extends State<Mahzeh> {
   ];
   final _testText =
       "Но я должен объяснить вам, как родилась вся эта ошибочная идея отрицания удовольствия и восхваления боли, и я дам вам полный отчет о системе и излагаю фактические учения великого исследователя истины, Создатель человеческого счастья";
-  final _testAnswers = ["один тестовый ответ", "другой тестовый ответ"];
+  final _testAnswers = ["один тестовый ответ", "другой тестовый ответ", "другой тестовый ответ 2"];
   var _flower_i = 0;
 
   @override
@@ -93,41 +95,9 @@ class _MahzehState extends State<Mahzeh> {
 
           final alreadySaved = _saved.contains(_suggestions[index]);
 
-          return Card(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  width: _screenWidth > 1200 ? _screenWidth / 2 : _screenWidth,
-                  child: Image(
-                    image: AssetImage(_flowers[_flower_i % _flowers.length]),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    _testText,
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const TranslateButton(),
-
-                // Image.asset(_flowers[_flower_i % _flowers.length]),
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width,
-                //   child: FittedBox(
-                //     child: Image.asset(_flowers[0]),
-                //     fit: BoxFit.fill,
-                //   ),
-                // ),
-              ],
-            ),
-          );
+          return Question(imageName: _flowers[_flower_i % _flowers.length],
+              imageDescription: _testText,
+              answers: _testAnswers);
 
           // return ListTile(
           //   title: Text(
