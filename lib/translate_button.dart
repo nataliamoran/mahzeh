@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'answer_screen.dart';
+
 class _TranslateButtonState extends State<TranslateButton> {
 
   @override
@@ -46,8 +48,18 @@ class _TranslateButtonState extends State<TranslateButton> {
             ),
             const Text('перекласти / перевести'),
           ]),
-          onPressed: () {},
+          onPressed: () => { _answerQuestion() },
         ));
+  }
+
+  void _answerQuestion() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) {
+          return const AnswerScreen();
+        },
+      ),
+    );
   }
 }
 
