@@ -15,12 +15,23 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         primary: Colors.deepOrange,
-        padding: EdgeInsetsDirectional.fromSTEB(10, 5, 20, 5),
+        padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 20, 5),
         textStyle: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: GoogleFonts.comfortaa().fontFamily),
       ),
     ),
+    inputDecorationTheme: const InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepPurple),
+      ),
+      border: OutlineInputBorder(),
+      floatingLabelStyle: TextStyle(color: Colors.deepPurple),
+    ),
     fontFamily: GoogleFonts.comfortaa().fontFamily,
+    colorScheme: ThemeData().colorScheme.copyWith(
+      primary:Colors.deepPurple,
+    ),
+
   );
 }
