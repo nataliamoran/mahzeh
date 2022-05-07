@@ -39,16 +39,18 @@ class _AnswerScreenState extends State<AnswerScreen> {
           Padding(
               padding: const EdgeInsets.only(
                   left: 5.0, top: 10.0, right: 5.0, bottom: 5.0),
-              child: TextField(
+              child: TextFormField(
                 decoration: InputDecoration(
                   labelText: 'відповісти / ответить',
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.send),
                     onPressed: () {
-                      setState(() {
-                        widget.answers.add(answerController.text);
-                      });
-                      answerController.clear();
+                      if (answerController.text.length > 3) {
+                        setState(() {
+                          widget.answers.add(answerController.text);
+                        });
+                        answerController.clear();
+                      }
                     },
                   ),
                 ),

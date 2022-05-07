@@ -27,7 +27,9 @@ class AppTheme {
       ),
       border: OutlineInputBorder(),
       floatingLabelStyle: TextStyle(color: Colors.deepPurple),
+      labelStyle: TextStyle(fontSize: 14),
     ),
+    toggleableActiveColor: Colors.deepPurple,
     fontFamily: GoogleFonts.comfortaa().fontFamily,
     colorScheme: ThemeData().colorScheme.copyWith(
       primary:Colors.deepPurple,
