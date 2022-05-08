@@ -1,8 +1,7 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-// import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'translate_button.dart';
 import 'question.dart';
 import 'question_screen.dart';
@@ -33,26 +32,26 @@ class Mahzeh extends StatefulWidget {
 }
 
 class _MahzehState extends State<Mahzeh> {
-  final _suggestions = <WordPair>[];
-  final _saved = <WordPair>{};
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-  final _flowers = [
-    'assets/images/camomile.jpeg',
-    'assets/images/tulips.jpeg',
-    'assets/images/snapdragon.jpeg',
-    'assets/images/clover.jpeg'
-  ];
-  final _testText =
-      "Но я должен объяснить вам, как родилась вся эта ошибочная идея отрицания удовольствия и восхваления боли, и я дам вам полный отчет о системе и излагаю фактические учения великого исследователя истины, Создатель человеческого счастья";
-  final _testAnswers = ["один тестовый ответ один тестовый ответ один тестовый ответ один тестовый ответ один тестовый ответ",
-    "другой тестовый ответ",
-    "другой тестовый ответ 2"];
-  var _flower_i = 0;
+  List _questions = [];
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/test_data.json');
+    final data = await json.decode(response);
+    setState(() {
+      _questions = data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readJson();
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return _questions.isEmpty ?  const Scaffold() : Scaffold(
       appBar: AppBar(
         title: const Text('mahzeh'),
         actions: [
@@ -65,54 +64,22 @@ class _MahzehState extends State<Mahzeh> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
+        itemCount: _questions.length,
         itemBuilder: (context, i) {
-          if (i.isOdd) return const Divider();
-          _flower_i += 1;
-
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-
-          final alreadySaved = _saved.contains(_suggestions[index]);
-
+          String _picturePath = "assets/images/${_questions[i]["title"]}";
           return Card(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Question(imageName: _flowers[_flower_i % _flowers.length],
-                    imageDescription: _testText,
-                    answers: _testAnswers),
-                TranslateButton(imageName: _flowers[_flower_i % _flowers.length],
-                    imageDescription: _testText,
-                    answers: _testAnswers),
+                Question(imageName: _picturePath,
+                    imageDescription: _questions[i]["description"],
+                    answers: _questions[i]["answers"]),
+                TranslateButton(imageName: _picturePath,
+                    imageDescription: _questions[i]["description"],
+                    answers: _questions[i]["answers"]),
               ],
             ),
           );
-
-          // return ListTile(
-          //   title: Text(
-          //     _suggestions[index].asPascalCase,
-          //     style: _biggerFont,
-          //   ),
-          //   leading: Image.asset(
-          //     'assets/images/camomile.jpeg',
-          //   ),
-          //   trailing: Icon(
-          //     alreadySaved ? Icons.favorite : Icons.favorite_border,
-          //     color: alreadySaved ? Colors.red : null,
-          //     semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
-          //   ),
-          //   onTap: () {
-          //     setState(() {
-          //       if (alreadySaved) {
-          //         _saved.remove(_suggestions[index]);
-          //       } else {
-          //         _saved.add(_suggestions[index]);
-          //       }
-          //     });
-          //   },
-          // );
         },
       ),
     );

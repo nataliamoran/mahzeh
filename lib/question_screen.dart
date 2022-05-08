@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  var imageFile;
+  File? imageFile;
   final questionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final _screenWidth = MediaQuery.of(context).size.width;
     bool _isUkrainianLang = true;
     bool _isRussianLang = true;
 
@@ -21,7 +20,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             child: Column(children: <Widget>[
           if (imageFile != null)
             Image.file(
-              imageFile,
+              imageFile!,
               fit: BoxFit.cover,
             ),
           Row(
