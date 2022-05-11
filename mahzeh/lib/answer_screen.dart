@@ -13,10 +13,12 @@ class _AnswerScreenState extends State<AnswerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String _title = _getTitle();
+    String _placeholder = _getPlaceholder();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('перекласти / перевести'),
+        title: Text(_title),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -41,7 +43,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   left: 5.0, top: 10.0, right: 5.0, bottom: 5.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'відповісти / ответить',
+                  labelText: _placeholder,
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.send),
                     onPressed: () {
@@ -61,18 +63,46 @@ class _AnswerScreenState extends State<AnswerScreen> {
       )),
     );
   }
+
+  String _getTitle(){
+    if(widget.isUkrainianLang && widget.isRussianLang) {
+      return 'перекласти / перевести';
+    }
+    if(widget.isUkrainianLang) {
+      return 'перекласти';
+    }
+    else {
+      return 'перевести';
+    }
+  }
+
+  String _getPlaceholder(){
+    if(widget.isUkrainianLang && widget.isRussianLang) {
+      return 'відповісти / ответить';
+    }
+    if(widget.isUkrainianLang) {
+      return 'відповісти';
+    }
+    else {
+      return 'ответить';
+    }
+  }
 }
 
 class AnswerScreen extends StatefulWidget {
   final String imageName;
   final String imageDescription;
   final List answers;
+  final bool isUkrainianLang;
+  final bool isRussianLang;
 
   const AnswerScreen(
       {Key? key,
       required this.imageName,
       required this.imageDescription,
-      required this.answers})
+      required this.answers,
+      required this.isUkrainianLang,
+      required this.isRussianLang})
       : super(key: key);
 
   @override

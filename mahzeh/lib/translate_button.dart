@@ -60,7 +60,9 @@ class _TranslateButtonState extends State<TranslateButton> {
         builder: (context) {
           return AnswerScreen(imageName: widget.imageName,
               imageDescription: widget.imageDescription,
-              answers: widget.answers);
+              answers: widget.answers,
+              isUkrainianLang: widget.isUkrainianLang,
+              isRussianLang: widget.isRussianLang);
         },
       ),
     );
@@ -85,6 +87,7 @@ class TranslateButton extends StatefulWidget {
   final List answers;
   final bool isUkrainianLang;
   final bool isRussianLang;
+
   const TranslateButton({Key? key,
     required this.imageName,
     required this.imageDescription,

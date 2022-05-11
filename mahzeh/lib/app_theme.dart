@@ -11,6 +11,7 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: Colors.deepPurple,
       ),
+      centerTitle: true,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -32,8 +33,7 @@ class AppTheme {
     toggleableActiveColor: Colors.deepPurple,
     fontFamily: GoogleFonts.comfortaa().fontFamily,
     colorScheme: ThemeData().colorScheme.copyWith(
-      primary:Colors.deepPurple,
-    ),
-
+          primary: Colors.deepPurple,
+        ),
   );
 }
