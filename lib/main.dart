@@ -76,7 +76,9 @@ class _MahzehState extends State<Mahzeh> {
                     answers: _questions[i]["answers"]),
                 TranslateButton(imageName: _picturePath,
                     imageDescription: _questions[i]["description"],
-                    answers: _questions[i]["answers"]),
+                    answers: _questions[i]["answers"],
+                    isUkrainianLang: _questions[i]["ukrainian"],
+                    isRussianLang: _questions[i]["russian"]),
               ],
             ),
           );

@@ -6,6 +6,8 @@ class _TranslateButtonState extends State<TranslateButton> {
 
   @override
   Widget build(BuildContext context) {
+    String _buttonText = _getButtonText();
+
     return Container(
         margin: const EdgeInsets.only(top: 5.0, bottom: 10.0),
         child: TextButton(
@@ -46,7 +48,7 @@ class _TranslateButtonState extends State<TranslateButton> {
                     )),
               ],
             ),
-            const Text('перекласти / перевести'),
+            Text(_buttonText),
           ]),
           onPressed: () => { _answerQuestion() },
         ));
@@ -63,16 +65,32 @@ class _TranslateButtonState extends State<TranslateButton> {
       ),
     );
   }
+
+  String _getButtonText() {
+    if(widget.isUkrainianLang && widget.isRussianLang) {
+      return 'перекласти / перевести';
+    }
+    if(widget.isUkrainianLang) {
+      return 'перекласти';
+    }
+    else {
+      return 'перевести';
+    }
+  }
 }
 
 class TranslateButton extends StatefulWidget {
   final String imageName;
   final String imageDescription;
   final List answers;
+  final bool isUkrainianLang;
+  final bool isRussianLang;
   const TranslateButton({Key? key,
     required this.imageName,
     required this.imageDescription,
-    required this.answers}) : super(key: key);
+    required this.answers,
+    required this.isUkrainianLang,
+    required this.isRussianLang}) : super(key: key);
 
   @override
   State<TranslateButton> createState() => _TranslateButtonState();
